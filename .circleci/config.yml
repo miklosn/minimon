@@ -29,13 +29,6 @@ jobs:
           paths:
             - dist-ui
 
-  build-api:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo/api
-    steps:
-      - checkout:
-          path: ~/repo
       - restore_cache:
           working_directory: ~/repo/api
           keys:
@@ -51,16 +44,13 @@ jobs:
         
       - run: npm run build
 
-      - run: mv dist dist-api
+      - run: npm run prepare-pkg
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - dist-api
+      - run: npm run pkg
+
 
 workflows:
   version: 2
   build:
     jobs:
       - build-ui
-      - build-api
