@@ -1,0 +1,109 @@
+{
+    "name": "auth",
+    "version": "1.0.0",
+    "description": "",
+    "main": "node dist/server.js",
+    "scripts": {
+        "start": "NODE_ENV=production node dist/server.js",
+        "build": "rimraf dist && cross-env NODE_ENV=production babel src -d dist -s",
+        "dev": "nodemon src/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@koa/cors": "^2.2.1",
+        "koa": "^2.5.1",
+        "koa-bodyparser": "^4.2.0",
+        "koa-router": "^7.4.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-eslint": "^8.2.3",
+        "babel-plugin-source-map-support": "^2.0.1",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.6.1",
+        "cross-env": "^5.1.4",
+        "eslint": "^4.19.1",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.11.0",
+        "eslint-plugin-jest": "^21.15.1",
+        "eslint-plugin-node": "^6.0.1",
+        "eslint-plugin-prettier": "^2.6.0",
+        "eslint-plugin-promise": "^3.7.0",
+        "nodemon": "^1.17.3",
+        "prettier": "^1.12.1",
+        "rimraf": "^2.6.2"
+    },
+    "nodemonConfig": {
+        "execMap": {
+            "js": "babel-node"
+        }
+    },
+    "babel": {
+        "sourceMaps": "both",
+        "plugins": [
+            "transform-runtime",
+            "transform-object-rest-spread"
+        ],
+        "presets": [
+            [
+                "env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ],
+        "env": {
+            "production": {
+                "plugins": [
+                    "source-map-support"
+                ],
+                "ignore": [
+                    "**/__tests__/**"
+                ]
+            }
+        }
+    },
+    "eslintConfig": {
+        "parserOptions": {
+            "ecmaVersion": 6,
+            "sourceType": "module"
+        },
+        "parser": "babel-eslint",
+        "extends": [
+            "eslint:recommended",
+            "plugin:prettier/recommended"
+        ],
+        "env": {
+            "node": true
+        },
+        "rules": {
+            "object-curly-newline": [
+                "error",
+                {
+                    "ObjectExpression": "always",
+                    "ObjectPattern": {
+                        "multiline": true,
+                        "minProperties": 3
+                    },
+                    "ImportDeclaration": "never",
+                    "ExportDeclaration": {
+                        "multiline": true,
+                        "minProperties": 3
+                    }
+                }
+            ],
+            "quotes": [
+                "error",
+                "single"
+            ]
+        }
+    },
+    "prettier": {
+        "singleQuote": true
+    }
+}
