@@ -23,12 +23,9 @@ jobs:
       - run: npm run build
 
       - persist_to_workspace:
-          root: dist
+          root: .
           paths:
-            - css/*
-            - index.html
-            - img/
-            - js/
+            - dist
 
   build-api:
     docker:
