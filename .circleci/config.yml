@@ -46,8 +46,9 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - attach_workspace:
+          at: ui
       - run: npm run build
-      - run: npm run prepare-pkg
       - run: npm run pkg
 
 workflows:
