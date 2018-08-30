@@ -23,9 +23,9 @@ jobs:
       - run: npm run build
 
       - persist_to_workspace:
-          root: dist
+          root: /tmp/workspace
           paths:
-            - *
+            - dist/*
 
   build-api:
     docker:
