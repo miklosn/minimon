@@ -22,10 +22,12 @@ jobs:
         
       - run: npm run build
 
+      - run: mv dist dist-ui
+
       - persist_to_workspace:
           root: .
           paths:
-            - dist
+            - dist-ui
 
   build-api:
     docker:
@@ -49,10 +51,12 @@ jobs:
         
       - run: npm run build
 
+      - run: mv dist dist-api
 
-
-
-
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist-api
 
 workflows:
   version: 2
