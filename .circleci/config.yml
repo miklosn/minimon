@@ -55,6 +55,6 @@ workflows:
   build:
     jobs:
       - build-ui
-      - build-api
+      - build-api:
           requires:
             - build-ui
