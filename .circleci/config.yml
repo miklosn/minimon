@@ -29,6 +29,8 @@ jobs:
           paths:
             - dist-ui
 
+      working_directory: ~/repo/api
+
       - restore_cache:
           working_directory: ~/repo/api
           keys:
