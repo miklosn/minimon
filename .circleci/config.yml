@@ -29,15 +29,15 @@ jobs:
           paths:
             - dist-ui
 
-  build-api:
+  build-mond:
     docker:
       - image: circleci/node:10
-    working_directory: ~/repo/api
+    working_directory: ~/repo/mond
     steps:
       - checkout:
           path: ~/repo
       - restore_cache:
-          working_directory: ~/repo/api
+          working_directory: ~/repo/mond
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
@@ -65,6 +65,6 @@ workflows:
   build:
     jobs:
       - build-ui
-      - build-api:
+      - build-mond:
           requires:
             - build-ui
