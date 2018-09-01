@@ -1,0 +1,70 @@
+version: 2
+jobs:
+  build-ui:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo/ui
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          working_directory: ~/repo/ui
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+        
+      - run: npm run build
+
+      - run: mv dist dist-ui
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist-ui
+
+  build-api:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo/api
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          working_directory: ~/repo/api
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - restore_cache:
+          keys:
+          - pkg-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - attach_workspace:
+          at: ui
+      - run: npm run build
+      - run: npm run pkg
+      - save_cache:
+          paths:
+            - ~/.pkg-cache
+          key: pkg-{{ checksum "package.json" }}
+
+
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-ui
+      - build-api:
+          requires:
+            - build-ui
