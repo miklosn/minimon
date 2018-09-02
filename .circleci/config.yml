@@ -53,6 +53,7 @@ jobs:
           at: ui
       - run: npm run build
       - run: npm run pkg
+      - run: ls -la
       - save_cache:
           paths:
             - ~/.pkg-cache
