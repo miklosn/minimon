@@ -51,7 +51,7 @@
         "targets": [
             "node10-linux-x64",
             "node10-linux-x86", 
-            "node8-linux-armv6",
+            "node10-linux-armv7",
             "node10-macos-x64",
             "node10-win-x64"
         ]
