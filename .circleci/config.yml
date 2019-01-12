@@ -4,8 +4,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-      - checkout:
-          path: ~/repo
+      - checkout
       - run: npm install
       - run: npx lerna bootstrap
       - run: npx lerna run build
