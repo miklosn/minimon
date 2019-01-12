@@ -1,0 +1,22 @@
+{
+  "name": "mon",
+  "version": "0.0.1",
+  "description": "mon",
+  "main": "index.js",
+  "devDependencies": {
+    "lerna": "^3.10.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miklosn/mon.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miklosn/mon/issues"
+  },
+  "homepage": "https://github.com/miklosn/mon#readme"
+}

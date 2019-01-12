@@ -1,68 +1,19 @@
 version: 2
 jobs:
-  build-ui:
+  build:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo/ui
     steps:
       - checkout:
           path: ~/repo
-      - restore_cache:
-          working_directory: ~/repo/ui
-          keys:
-          - ui-deps-{{ checksum "package-lock.json" }}
-          - ui-deps-
-
       - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: ui-deps-{{ checksum "package-lock.json" }}
-        
-      - run: npm run build
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - dist-ui
-
-  build-mond:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo/mond
-    steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          working_directory: ~/repo/mond
-          keys:
-          - mond-deps-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          keys:
-          - pkg-{{ checksum "package-lock.json" }}
-      - run: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: mond-deps-{{ checksum "package-lock.json" }}
-      - attach_workspace:
-          at: ui
-      - run: npm run build
-      - run: npm run pkg
-      - run: ls -la bin/
-      - save_cache:
-          paths:
-            - ~/.pkg-cache
-          key: pkg-{{ checksum "package-lock.json" }}
-
-
-
+      - run: npx lerna bootstrap
+      - run: npx lerna run build
+      - run: npx lerna run prepare-pkg
+      - run: npx lerna run pkg
 workflows:
   version: 2
   build:
     jobs:
-      - build-ui
-      - build-mond:
-          requires:
-            - build-ui
+      - build
