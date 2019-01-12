@@ -12,6 +12,7 @@ jobs:
       - run: npx lerna run build
       - run: npx lerna run prepare-pkg
       - run: npx lerna run pkg
+      - run: ls -la packages/mond/bin/
 workflows:
   version: 2
   build:
