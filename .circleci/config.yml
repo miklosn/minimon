@@ -10,7 +10,7 @@ jobs:
       - restore_cache:
           working_directory: ~/repo/ui
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "package-lock.json" }}
           - v1-dependencies-
 
       - run: npm install
@@ -18,7 +18,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
         
       - run: npm run build
 
@@ -39,16 +39,15 @@ jobs:
       - restore_cache:
           working_directory: ~/repo/mond
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+          - v1-dependencies-{{ checksum "package-lock.json" }}
       - restore_cache:
           keys:
-          - pkg-{{ checksum "package.json" }}
+          - pkg-{{ checksum "package-lock.json" }}
       - run: npm install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: ui
       - run: npm run build
@@ -57,7 +56,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.pkg-cache
-          key: pkg-{{ checksum "package.json" }}
+          key: pkg-{{ checksum "package-lock.json" }}
 
 
 
